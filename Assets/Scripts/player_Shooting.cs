@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class player_Shooting : MonoBehaviour
 {
-
     public GameObject bullet;
     public Transform firePoint;
     [SerializeField] float bulletSpeed;
@@ -16,54 +15,54 @@ public class player_Shooting : MonoBehaviour
 
     public warpPlayer currentProjectile;
 
-    // points the gameobject to the cursor
-    // grabs an angle for rotational point
-    // rotates firePoint object
     void Update()
     {
+        // Aim at mouse
         pointingDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        thetaVal = Mathf.Atan2(pointingDirection.y,pointingDirection.x) * Mathf.Rad2Deg;
+        thetaVal = Mathf.Atan2(pointingDirection.y, pointingDirection.x) * Mathf.Rad2Deg;
         firePoint.rotation = Quaternion.Euler(0f, 0f, thetaVal);
 
-        fireBullet();
-
-        if (Input.GetKeyDown(KeyCode.F))
+        // LEFT CLICK HANDLES BOTH ACTIONS
+        if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Warping to " + currentProjectile);
-            warpBullet();
-        }
-    }
-
-    // checks for left click and if there's no bullet
-    // if true, instantate bulletClone at firepoint position
-    // 
-    void fireBullet() 
-    {
-        if (Input.GetMouseButtonDown(0) && currentProjectile == null)
-        { 
-            GameObject bulletClone = Instantiate(bullet);
-
-            currentProjectile = bulletClone.GetComponent<warpPlayer>();
-
-            if(currentProjectile != null ) 
+            if (currentProjectile == null)
             {
-                currentProjectile.setOwner(this.gameObject);
+                FireBullet();       // first click -> shoot
             }
-
-            bulletClone.transform.position = firePoint.position;
-            bulletClone.transform.rotation = Quaternion.Euler(0,0,thetaVal);
-
-            bulletClone.GetComponent<Rigidbody2D>().linearVelocity = firePoint.right * bulletSpeed;
-            Destroy(bulletClone, bulletLife);
+            else
+            {
+                WarpBullet();       // second click -> warp
+            }
         }
     }
 
-    void warpBullet()
+    // Shoots a bullet and remembers it as currentProjectile
+    void FireBullet()
+    {
+        GameObject bulletClone = Instantiate(bullet);
+
+        currentProjectile = bulletClone.GetComponent<warpPlayer>();
+
+        if (currentProjectile != null)
+        {
+            currentProjectile.setOwner(this.gameObject);
+        }
+
+        bulletClone.transform.position = firePoint.position;
+        bulletClone.transform.rotation = Quaternion.Euler(0, 0, thetaVal);
+
+        bulletClone.GetComponent<Rigidbody2D>().linearVelocity = firePoint.right * bulletSpeed;
+        Destroy(bulletClone, bulletLife);   // if it times out, Unity will treat currentProjectile as null
+    }
+
+    // Warps player to the current bullet, then clears it
+    void WarpBullet()
     {
         if (currentProjectile != null)
         {
             transform.position = currentProjectile.transform.position;
             Destroy(currentProjectile.gameObject);
+            currentProjectile = null;       // so next click will shoot again
         }
     }
 }
