@@ -8,7 +8,7 @@ public class stopwatchControl : MonoBehaviour
 
     private float elapsedTime;
     private bool isRunning;
-    
+    public float GetElapsedTime() => elapsedTime;
     void Awake()
     {
         elapsedTime = 0f;

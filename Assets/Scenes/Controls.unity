@@ -328,21 +328,22 @@ MonoBehaviour:
   m_text: 'How to Play
 
 
-    A and D - Move Left/Right
+    A/D or left/right arrow keys - Move Left/Right
 
-    Spacebar - Jump
+    Spacebar
+    - Jump
 
-    Left
-    Click - Fire Projectile
+    Left Click - Fire Projectile
 
-    F - Teleport to Projectile
+    Left Click second time - Teleport
+    to Projectile
 
 
     P - Pause Menu
 
 
-    Explore
-    for the orange door to escape the facility.'
+    Explore for the orange door to escape
+    the facility.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
