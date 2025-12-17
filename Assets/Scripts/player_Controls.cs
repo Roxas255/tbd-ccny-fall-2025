@@ -111,7 +111,7 @@ public class player_Controls : MonoBehaviour
     {
         if (other.gameObject.CompareTag("gameOver"))
         {
-            SceneManager.LoadSceneAsync(1);
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         }
 
     }
