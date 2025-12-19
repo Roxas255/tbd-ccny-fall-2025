@@ -7,7 +7,7 @@ public class WinMenuController : MonoBehaviour
     
     private List<string> levelOrder = new List<string>()
     {
-        "SampleScene", // Level 1
+        "Level 1", 
         "Level 2",     
         "Level 3"      
     };

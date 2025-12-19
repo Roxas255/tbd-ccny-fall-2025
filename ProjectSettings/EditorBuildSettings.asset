@@ -18,7 +18,13 @@ EditorBuildSettings:
     path: Assets/Scenes/You Win!.unity
     guid: 2ce46de4e3579694e8937ee4bcc3b79b
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/Level 1.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Level 2.unity
+    guid: 3b0cab7319c4c6d49b7a7cb9bacc9f3c
+  - enabled: 1
+    path: Assets/Scenes/Level 3.unity
+    guid: 64af00671595a3641aee4ef22ddc505f
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
