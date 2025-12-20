@@ -13,7 +13,6 @@ public class winGame : MonoBehaviour
 
     private void Reset()
     {
-        // Auto-make the collider a trigger (nice when attaching to the portal)
         var col = GetComponent<Collider2D>();
         if (col != null) col.isTrigger = true;
     }
@@ -22,7 +21,6 @@ public class winGame : MonoBehaviour
     {
         if (hasWon) return;
 
-        // React to PLAYER ROOT (works even if player has child colliders)
         var playerRoot = other.attachedRigidbody ? other.attachedRigidbody.gameObject : other.gameObject;
         if (!playerRoot.CompareTag(playerTag)) return;
 
@@ -30,14 +28,13 @@ public class winGame : MonoBehaviour
 
         string levelId = SceneManager.GetActiveScene().name;
 
-        // Save time if stopwatch exists
         var sw = Object.FindFirstObjectByType<stopwatchControl>();
         if (sw != null)
         {
             LevelScoreboard.AddScore(levelId, sw.GetElapsedTime());
+            sw.stopStopwatch(); // stop timer on win
         }
 
-        // Tell Win Scene which level was just completed
         PlayerPrefs.SetString(LevelScoreboard.LastLevelKey, levelId);
         PlayerPrefs.Save();
 

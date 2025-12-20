@@ -2,21 +2,24 @@ using UnityEngine;
 
 public class spawnPlayer : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-
     public GameObject playerPrefab;
     public Transform spawnPoint;
+
+    private GameObject currentPlayer;
+
     void Start()
     {
-        spawnInPlayer();
+        Respawn();
     }
 
-    // Update is called once per frame
-    void spawnInPlayer ()
+    public void Respawn()
     {
-        if(playerPrefab != null && spawnPoint != null)
+        if (playerPrefab != null && spawnPoint != null)
         {
-            Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
+            if (currentPlayer != null)
+                Destroy(currentPlayer);
+
+            currentPlayer = Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
         }
         else
         {

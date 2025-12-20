@@ -4,19 +4,29 @@ using System.Collections.Generic;
 
 public class WinMenuController : MonoBehaviour
 {
-    
     private List<string> levelOrder = new List<string>()
     {
-        "Level 1", 
-        "Level 2",     
-        "Level 3"      
+        "Level 1",
+        "Level 2",
+        "Level 3"
     };
+
+    private void ResetAndStartStopwatch()
+    {
+        var sw = Object.FindFirstObjectByType<stopwatchControl>();
+        if (sw != null)
+        {
+            sw.resetStopwatch();
+            sw.startStopwatch();
+        }
+    }
 
     public void PlayAgain()
     {
         string lastLevel = PlayerPrefs.GetString(LevelScoreboard.LastLevelKey, "");
         if (!string.IsNullOrEmpty(lastLevel))
         {
+            ResetAndStartStopwatch();
             SceneManager.LoadSceneAsync(lastLevel);
         }
     }
@@ -28,20 +38,21 @@ public class WinMenuController : MonoBehaviour
 
         int currentIndex = levelOrder.IndexOf(lastLevel);
 
-        // If there's a next level it will load it
         if (currentIndex >= 0 && currentIndex + 1 < levelOrder.Count)
         {
+            ResetAndStartStopwatch();
             SceneManager.LoadSceneAsync(levelOrder[currentIndex + 1]);
         }
         else
         {
-            // if there is no next level go back to menu
+            ResetAndStartStopwatch();
             SceneManager.LoadSceneAsync("Main Menu");
         }
     }
 
     public void MainMenu()
     {
+        ResetAndStartStopwatch();
         SceneManager.LoadSceneAsync("Main Menu");
     }
 }
