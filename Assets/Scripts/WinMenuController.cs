@@ -4,12 +4,26 @@ using System.Collections.Generic;
 
 public class WinMenuController : MonoBehaviour
 {
+    [Header("UI")]
+    [SerializeField] private GameObject nextLevelButton; // drag your Next Level button here
+
     private List<string> levelOrder = new List<string>()
     {
         "Level 1",
         "Level 2",
         "Level 3"
     };
+
+    void Start()
+    {
+        string lastLevel = PlayerPrefs.GetString(LevelScoreboard.LastLevelKey, "");
+
+        // Hide next level button if you're on the last level
+        if (nextLevelButton != null && lastLevel == "Level 3")
+        {
+            nextLevelButton.SetActive(false);
+        }
+    }
 
     private void ResetAndStartStopwatch()
     {
@@ -45,6 +59,7 @@ public class WinMenuController : MonoBehaviour
         }
         else
         {
+            // No next level so go to menu
             ResetAndStartStopwatch();
             SceneManager.LoadSceneAsync("Main Menu");
         }
